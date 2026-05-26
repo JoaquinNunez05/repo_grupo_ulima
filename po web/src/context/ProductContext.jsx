@@ -13,9 +13,12 @@ export const ProductProvider = ({ children }) => {
         if (res.ok) {
           const data = await res.json();
           setProducts(data);
+        } else {
+          setProducts(initialProducts);
         }
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error("Error fetching products, falling back to local data:", error);
+        setProducts(initialProducts);
       }
     };
     fetchProducts();
@@ -31,9 +34,13 @@ export const ProductProvider = ({ children }) => {
       if (res.ok) {
         const addedProduct = await res.json();
         setProducts([...products, addedProduct]);
+      } else {
+        throw new Error("Backend response not ok");
       }
     } catch (error) {
-      console.error("Error adding product:", error);
+      console.error("Error adding product, falling back to local state:", error);
+      const tempId = Date.now().toString();
+      setProducts([...products, { ...newProduct, id: tempId }]);
     }
   };
 
@@ -50,10 +57,15 @@ export const ProductProvider = ({ children }) => {
         if (res.ok) {
           const savedProduct = await res.json();
           setProducts(products.map((p) => p.id === productId ? savedProduct : p));
+        } else {
+          throw new Error("Backend response not ok");
         }
       }
     } catch (error) {
-      console.error("Error updating product stock:", error);
+      console.error("Error updating product stock, falling back to local state:", error);
+      setProducts(products.map(p =>
+        p.id === productId ? { ...p, stock: p.stock - quantity } : p
+      ));
     }
   };
 
