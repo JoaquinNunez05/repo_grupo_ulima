@@ -6,11 +6,11 @@ import { ProductContext } from '../context/ProductContext';
 import './Admin.css';
 
 const Admin = () => {
-  // Usuario actual del sistema
+ 
   const { currentUser } = useContext(AuthContext);
-  // Productos y función para agregar productos
+  
   const { products, addProduct } = useContext(ProductContext);
-  // para navegar entre páginas
+  
   const navigate = useNavigate();
 
   // Estado del formulario
@@ -26,26 +26,26 @@ const Admin = () => {
   // Estado para mostrar mensaje éxito
   const [success, setSuccess] = useState(false);
 
-  // Se ejecuta al cargar el componente
+  
   useEffect(() => {
 
     // Si no existe usuario o no es admin
     if (!currentUser || !currentUser.isAdmin) {
-      // Redirecciona al inicio
+      
       navigate('/');
     }
   }, [currentUser, navigate]);
   // Si no es admin no muestra nada
   if (!currentUser || !currentUser.isAdmin) return null;
-  // Actualiza los inputs del formulario
+
   const handleChange = (e) => {
     setFormData({
-      // Copia datos anteriores
+      
       ...formData,
-      // Actualiza el input modificado
+      
       [e.target.name]: e.target.value
     });
-    // Oculta mensaje éxito
+   
     setSuccess(false);
   };
 
@@ -55,7 +55,7 @@ const Admin = () => {
     e.preventDefault();
     // Nuevo producto
     const newProduct = {
-      // Copia datos formulario
+      
       ...formData,
       // Convierte precio a decimal
       price: parseFloat(formData.price),
@@ -74,11 +74,11 @@ const Admin = () => {
         newProduct.image =
           'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=800&q=80';
     }
-    // Agrega producto
+    
     addProduct(newProduct);
-    // Muestra mensaje éxito
+    
     setSuccess(true);
-    // Limpia formulario
+    
     setFormData({
       name: '',
       category: 'Teclados',

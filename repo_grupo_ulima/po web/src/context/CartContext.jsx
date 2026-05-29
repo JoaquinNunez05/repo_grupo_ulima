@@ -4,7 +4,7 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  //se ejecuta cuando el componente carga
+  
   useEffect(() => {
     //busca si hay carrito guardado
     const storedCart = localStorage.getItem('techgear_cart_v2');
@@ -39,7 +39,7 @@ export const CartProvider = ({ children }) => {
   //actu cant 
   const updateQuantity = (productId, quantity) => {
     if (quantity < 1) return;
-    //actu cant con map (para modificar solo 1 y mantener los demas)
+    
     const updatedCart = cartItems.map((item) =>
       item.id === productId ? { ...item, quantity } : item
     );
@@ -55,8 +55,8 @@ export const CartProvider = ({ children }) => {
   const { cartTotal, cartSubtotal } = useMemo(() => {
     //reduce para recorrer un arreglo y convertirlo en un valor final
     const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    // Asumiremos que el total es igual al subtotal para simplificar, o añadir un tax
-    return { cartSubtotal: subtotal, cartTotal: subtotal * 1.15 }; // 15% IVA
+   
+    return { cartSubtotal: subtotal, cartTotal: subtotal * 1.15 };
   }, [cartItems]);
   //datos compartidos
   return (

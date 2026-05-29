@@ -4,11 +4,11 @@ import { ShoppingCart } from 'lucide-react';
 import PropTypes from 'prop-types';
 import { CartContext } from '../context/CartContext';
 import './ProductCard.css';
-//componente funcional ProductCard
+
 const ProductCard = ({ product }) => {
-  //obtiene la función addToCart desde el contexto
+  
   const { addToCart } = useContext(CartContext);
-  //se ejecuta al presionar el boton del carrito
+  
   const handleAddToCart = (e) => {
     //evita que el link navegue automaticamente
     e.preventDefault();

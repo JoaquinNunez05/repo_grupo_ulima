@@ -7,21 +7,21 @@ import { ProductContext } from '../context/ProductContext';
 import './Checkout.css';
 
 const Checkout = () => {
-  // Datos y funciones del carrito
+  
   const {
     cartItems,
     cartTotal,
     clearCart
 
   } = useContext(CartContext);
-  // Usuario actual
+  
   const { currentUser } = useContext(AuthContext);
-  // Función para actualizar stock
+  
   const { updateProductStock } = useContext(ProductContext);
-  // Hook navegación
+  
   const navigate = useNavigate();
 
-  // Datos del formulario de pago
+  
   const [formData, setFormData] = useState({
     cardNumber: '',
     cardName: '',
@@ -29,11 +29,11 @@ const Checkout = () => {
     cvv: ''
   });
 
-  // Estado mientras procesa pago
+  
   const [isProcessing, setIsProcessing] = useState(false);
-  // Estado pago exitoso
+ 
   const [isSuccess, setIsSuccess] = useState(false);
-  // Actualiza inputs
+  
   const handleChange = (e) => {
     // Obtiene nombre y valor input
     let { name, value } = e.target;
@@ -44,21 +44,21 @@ const Checkout = () => {
       value = value.replace(/\D/g, '')
         // Agrega espacio cada 4 números
         .replace(/(.{4})/g, '$1 ')
-        // Elimina espacios extra
+        
         .trim();
-      // Máximo 19 caracteres
+      
       if (value.length > 19) return;
     }
     // FORMATO FECHA
     if (name === 'expiry') {
       // Solo números
       value = value.replace(/\D/g, '');
-      // Agrega 
+      
       if (value.length >= 2) {
         value =
           `${value.slice(0, 2)}/${value.slice(2, 4)}`;
       }
-      // Máximo 5 caracteres
+      
       if (value.length > 5) return;
     }
 
@@ -66,14 +66,14 @@ const Checkout = () => {
     if (name === 'cvv') {
       // Solo números
       value = value.replace(/\D/g, '');
-      // Máximo 3 números
+      
       if (value.length > 3) return;
     }
-    // Actualiza formulario
+    
     setFormData({
-      // Copia datos anteriores
+      
       ...formData,
-      // Actualiza input modificado
+      
       [name]: value
     });
   };
@@ -82,9 +82,9 @@ const Checkout = () => {
     // Evita recargar página
     e.preventDefault();
     setIsProcessing(true);
-    // Simula procesamiento pago
+    
     setTimeout(() => {
-      // Recorre productos comprados
+      
       cartItems.forEach(item => {
         // Reduce stock
         updateProductStock(

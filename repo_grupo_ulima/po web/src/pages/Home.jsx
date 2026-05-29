@@ -5,13 +5,13 @@ import ProductCard from '../components/ProductCard';
 import './Home.css';
 
 const Home = () => {
-  // Obtiene productos del contexto
+
   const { products } = useContext(ProductContext);
-  // Estado búsqueda
+
   const [searchTerm, setSearchTerm] = useState('');
-  // Estado categoría seleccionada
+
   const [selectedCategory, setSelectedCategory] = useState('All');
-  // Categorías disponibles
+
   const categories = [
     'All',
     'Teclados',
@@ -26,13 +26,13 @@ const Home = () => {
         product.name
           .toLowerCase()
           .includes(searchTerm.toLowerCase());
-      // Verifica categoría
+      
       const matchesCategory =
-        // Si es "All" muestra todos
+        
         selectedCategory === 'All'
-        // Si no compara categoría
+       
         || product.category === selectedCategory;
-      // Retorna productos válidos
+      
       return matchesSearch && matchesCategory;
     });
   },

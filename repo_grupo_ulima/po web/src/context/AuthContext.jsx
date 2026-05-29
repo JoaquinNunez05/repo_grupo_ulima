@@ -1,9 +1,9 @@
 import { createContext, useState, useEffect } from 'react';
-//crea el contexto auth para datos de autenticacion
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  //guarda el usuario logueado
+  
   const [currentUser, setCurrentUser] = useState(null);
   //se ejecuta una sola vez cuando el componente carga
   useEffect(() => {
@@ -12,12 +12,12 @@ export const AuthProvider = ({ children }) => {
     if (activeUser) {
       setCurrentUser(JSON.parse(activeUser));
     }
-    //convierte el texto json a un objeto
     
-    //obtiene usuarios registrados
+    
+    
     const storedUsers = localStorage.getItem('techgear_users');
     if (!storedUsers) {
-      //administrador inicial por si no hay
+      
       const defaultUsers = [{
         id: 1,
         name: 'Admin',
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 //funcion para iniciar sesion
   const login = async (email, password) => {
     return new Promise((resolve) => {
-      //simula retraso en el server
+      
       setTimeout(() => {
         //obtiene usuarios guardados
         const storedUsers = JSON.parse(localStorage.getItem('techgear_users') || '[]');
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         const user = storedUsers.find(u => u.email === email && u.password === password);
         
         if (user) {
-          //usa destructuring para extraer el password y devolver el resto (para no mostrar el pass despues del login)
+          
           const { password, ...userWithoutPassword } = user;
           setCurrentUser(userWithoutPassword);
           localStorage.setItem('techgear_current_user', JSON.stringify(userWithoutPassword));
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   };
 //funcion para registrar usuarios
   const register = async (name, email, password) => {
-    //se usa el promise para manejar acciones que toman tiempo en completarse (server no congelado)
+
     return new Promise((resolve) => {
       setTimeout(() => {
         const storedUsers = JSON.parse(localStorage.getItem('techgear_users') || '[]');
@@ -72,9 +72,9 @@ export const AuthProvider = ({ children }) => {
         //agrega el usuario creado al arreglo
         const updatedUsers = [...storedUsers, newUser];
         localStorage.setItem('techgear_users', JSON.stringify(updatedUsers));
-        //elimina el password antes de cerrar sesion
+        
         const { password: _, ...userWithoutPassword } = newUser;
-        //usuario queda logueado automaticamente
+        
         setCurrentUser(userWithoutPassword);
         localStorage.setItem('techgear_current_user', JSON.stringify(userWithoutPassword));
         
@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }) => {
       }, 500);
     });
   };
-  //cierra sesion
+  
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem('techgear_current_user');

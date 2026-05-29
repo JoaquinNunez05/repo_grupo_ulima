@@ -5,7 +5,7 @@ import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
 import './Header.css';
 
-//componente funcional Header
+
 const Header = () => {
   //obtiene cartItems desde el contexto del carrito
   const { cartItems } = useContext(CartContext);

@@ -5,43 +5,43 @@ import { ProductContext } from '../context/ProductContext';
 import { CartContext } from '../context/CartContext';
 import './ProductDetail.css';
 
-// Componente detalle producto
+
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  // Productos del contexto
+  
   const { products } = useContext(ProductContext);
-  // Función agregar carrito
+  
   const { addToCart } = useContext(CartContext);
-  // Estado producto actual
+  
   const [product, setProduct] = useState(null);
-  // Cantidad seleccionada
+  
   const [quantity, setQuantity] = useState(1);
 
-  // Busca producto al cargar
+  
   useEffect(() => {
     // Busca producto por ID
     const foundProduct = products.find(
       (p) => p.id === id
-    );
-    // Si encuentra producto
+    );d
+    // Si encuentra proucto
     if (foundProduct) {
-      // Guarda producto
+     
       setProduct(foundProduct);
     }
   }, [id, products]);
-  // Mientras carga producto
+  
   if (!product)
     return (
       <div className="page-container container">
         <p>Cargando producto...</p>
       </div>
     );
-  // Agregar producto al carrito
+  
   const handleAddToCart = () => {
-    // Agrega producto y cantidad
+    
     addToCart(product, quantity);
-    // Redirecciona al carrito
+    
     navigate('/cart');
   };
 

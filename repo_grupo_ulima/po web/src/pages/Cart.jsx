@@ -6,7 +6,7 @@ import { AuthContext } from '../context/AuthContext';
 import './Cart.css';
 
 const Cart = () => {
-  // Datos y funciones del carrito
+
   const {
     cartItems,
     updateQuantity,
@@ -14,11 +14,11 @@ const Cart = () => {
     cartSubtotal,
     cartTotal
   } = useContext(CartContext);
-  // Usuario actual
+  
   const { currentUser } = useContext(AuthContext);
-  // Hook para navegar páginas
+  
   const navigate = useNavigate();
-  // Función para finalizar compra
+  
   const handleCheckout = () => {
     // Si no hay usuario logueado
     if (!currentUser) {

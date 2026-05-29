@@ -5,27 +5,27 @@ import './Auth.css';
 
 const Auth = () => {
 
-  // Estado para cambiar entre login y registro
+  
   const [isLogin, setIsLogin] = useState(true);
-  // Datos del formulario
+  
   const [formData, setFormData] = useState({
 
     name: '',
     email: '',
     password: ''
   });
-  // Estado para mensajes de error
+  
   const [error, setError] = useState('');
-  // Funciones del AuthContext
+  
   const { login, register } = useContext(AuthContext);
-  // Hook para navegar páginas
+  
   const navigate = useNavigate();
-  // Actualiza inputs del formulario
+  
   const handleChange = (e) => {
     setFormData({
-      // Copia datos anteriores
+      
       ...formData,
-      // Actualiza el input modificado
+      
       [e.target.name]: e.target.value
     });
     setError('');
