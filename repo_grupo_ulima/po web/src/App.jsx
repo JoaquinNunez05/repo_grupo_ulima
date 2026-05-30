@@ -7,6 +7,8 @@ import Cart from './pages/Cart';
 import Auth from './pages/Auth';
 import Admin from './pages/Admin';
 import Checkout from './pages/Checkout';
+import Orders from './pages/Orders';
+import OrderTracking from './pages/OrderTracking';
 
 //estructura de navegación del sistema
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/order-tracking/:orderId" element={<OrderTracking />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>

@@ -26,6 +26,9 @@ const Header = () => {
           {currentUser?.isAdmin && (
             <Link to="/admin" className="nav-link">Dashboard</Link>
           )}
+          {currentUser && !currentUser.isAdmin && (
+            <Link to="/orders" className="nav-link">Mis Pedidos</Link>
+          )}
           {/* si el usuario no es admin */}
           <div className="user-section">
             {currentUser ? (

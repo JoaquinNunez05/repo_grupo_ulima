@@ -23,7 +23,7 @@ const ProductDetail = () => {
     // Busca producto por ID
     const foundProduct = products.find(
       (p) => p.id === id
-    );d
+    );
     // Si encuentra proucto
     if (foundProduct) {
      
