@@ -32,7 +32,7 @@ const Auth = () => {
   };
 
   // Enviar formulario
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     // Evita recargar página
     e.preventDefault();
     // Limpia errores
@@ -42,7 +42,7 @@ const Auth = () => {
     if (isLogin) {
 
       // Intenta iniciar sesión
-      const res = login(
+      const res = await login(
         formData.email,
         formData.password
       );
@@ -51,7 +51,8 @@ const Auth = () => {
       if (res.success) {
         navigate('/');
       } else {
-        setError(res.message);
+        alert('Usuario no encontrado');
+        setError('Usuario no encontrado');
       }
     }
     // REGISTRO
@@ -66,17 +67,17 @@ const Auth = () => {
         return;
       }
       // Intenta registrar usuario
-      const res = register(
+      const res = await register(
         formData.name,
         formData.email,
         formData.password
       );
-      // Si registro correcto
       if (res.success) {
         // Redirecciona al inicio
         navigate('/');
       } else {
-        setError(res.message);
+        alert('Usuario ya registrado');
+        setError('Usuario ya registrado');
       }
     }
   };
@@ -85,57 +86,57 @@ const Auth = () => {
     <div className="auth-page container page-container animate-fade-in">
       <div className="auth-card glass">
         <h2 className="auth-title">{isLogin ? 'Iniciar Sesión' : 'Crear Cuenta'}</h2>
-        
+
         {error && <div className="auth-error">{error}</div>}
-        
+
         <form onSubmit={handleSubmit} className="auth-form">
           {!isLogin && (
             <div className="form-group">
               <label>Nombre Completo</label>
-              <input 
-                type="text" 
-                name="name" 
-                value={formData.name} 
-                onChange={handleChange} 
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
                 placeholder="Juan Pérez"
               />
             </div>
           )}
-          
+
           <div className="form-group">
             <label>Correo Electrónico</label>
-            <input 
-              type="email" 
-              name="email" 
-              value={formData.email} 
-              onChange={handleChange} 
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               placeholder="tu@email.com"
               required
             />
           </div>
-          
+
           <div className="form-group">
             <label>Contraseña</label>
-            <input 
-              type="password" 
-              name="password" 
-              value={formData.password} 
-              onChange={handleChange} 
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
               placeholder="••••••••"
               required
             />
           </div>
-          
+
           <button type="submit" className="auth-submit-btn">
             {isLogin ? 'Ingresar' : 'Registrarse'}
           </button>
         </form>
-        
+
         <div className="auth-switch">
           <p>
             {isLogin ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?'}
-            <button 
-              className="switch-btn" 
+            <button
+              className="switch-btn"
               onClick={() => setIsLogin(!isLogin)}
             >
               {isLogin ? 'Regístrate aquí' : 'Inicia sesión'}

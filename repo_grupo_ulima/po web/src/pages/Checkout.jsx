@@ -26,7 +26,8 @@ const Checkout = () => {
     cardNumber: '',
     cardName: '',
     expiry: '',
-    cvv: ''
+    cvv: '',
+    phone: ''
   });
 
   // Estado mientras procesa pago
@@ -69,6 +70,15 @@ const Checkout = () => {
       // Máximo 3 números
       if (value.length > 3) return;
     }
+
+    // FORMATO TELEFONO
+    if (name === 'phone') {
+      // Solo números
+      value = value.replace(/\D/g, '');
+      // Máximo 9 números
+      if (value.length > 9) return;
+    }
+
     // Actualiza formulario
     setFormData({
       // Copia datos anteriores
@@ -124,7 +134,7 @@ const Checkout = () => {
           <CreditCard size={32} className="checkout-icon" />
           <h2>Completar Pago</h2>
         </div>
-        
+
         <div className="payment-summary">
           <span>Total a Pagar:</span>
           <span className="total-amount">S/ {cartTotal.toFixed(2)}</span>
@@ -132,59 +142,72 @@ const Checkout = () => {
 
         <form onSubmit={handleSubmit} className="checkout-form">
           <div className="form-group">
-            <label>Nombre en la Tarjeta</label>
-            <input 
-              type="text" 
-              name="cardName" 
-              value={formData.cardName} 
-              onChange={handleChange} 
-              placeholder="JUAN PEREZ"
-              required 
+            <label>Número de Teléfono</label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="999 999 999"
+              maxLength="9"
+              required
             />
           </div>
-          
+
+          <div className="form-group">
+            <label>Nombre en la Tarjeta</label>
+            <input
+              type="text"
+              name="cardName"
+              value={formData.cardName}
+              onChange={handleChange}
+              placeholder="JUAN PEREZ"
+              required
+            />
+          </div>
+
           <div className="form-group">
             <label>Número de Tarjeta</label>
-            <input 
-              type="text" 
-              name="cardNumber" 
-              value={formData.cardNumber} 
-              onChange={handleChange} 
+            <input
+              type="text"
+              name="cardNumber"
+              value={formData.cardNumber}
+              onChange={handleChange}
               placeholder="0000 0000 0000 0000"
               maxLength="19"
-              required 
+              required
             />
           </div>
-          
+
           <div className="form-row">
             <div className="form-group">
               <label>Vencimiento (MM/AA)</label>
-              <input 
-                type="text" 
-                name="expiry" 
-                value={formData.expiry} 
-                onChange={handleChange} 
+              <input
+                type="text"
+                name="expiry"
+                value={formData.expiry}
+                onChange={handleChange}
                 placeholder="12/25"
                 maxLength="5"
-                required 
+                required
               />
             </div>
             <div className="form-group">
               <label>CVV</label>
-              <input 
-                type="password" 
-                name="cvv" 
-                value={formData.cvv} 
-                onChange={handleChange} 
+              <input
+                type="password"
+                name="cvv"
+                value={formData.cvv}
+                onChange={handleChange}
                 placeholder="123"
                 maxLength="3"
-                required 
+                required
               />
             </div>
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className={`pay-btn ${isProcessing ? 'processing' : ''}`}
             disabled={isProcessing}
           >
