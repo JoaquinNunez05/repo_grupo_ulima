@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CreditCard, CheckCircle, MapPin, ArrowRight, ArrowLeft, ShoppingBag } from 'lucide-react';
+import { CreditCard, CheckCircle, MapPin, ArrowRight, ArrowLeft } from 'lucide-react';
 import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
 import { ProductContext } from '../context/ProductContext';
@@ -31,7 +31,8 @@ const Checkout = () => {
     cardNumber: '',
     cardName: '',
     expiry: '',
-    cvv: ''
+    cvv: '',
+    phone: ''
   });
 
   const [isProcessing, setIsProcessing] = useState(false);
@@ -89,7 +90,14 @@ const Checkout = () => {
       value = value.replace(/\D/g, '');
       if (value.length > 3) return;
     }
-    
+
+    // FORMATO TELEFONO
+    if (name === 'phone') {
+      value = value.replace(/\D/g, '');
+      if (value.length > 9) return;
+    }
+
+    // Actualiza formulario
     setFormData({
       ...formData,
       [name]: value
@@ -232,7 +240,7 @@ const Checkout = () => {
             </>
           )}
         </div>
-        
+
         <div className="payment-summary">
           <span>Total a Pagar:</span>
           <span className="total-amount">S/ {cartTotal.toFixed(2)}</span>

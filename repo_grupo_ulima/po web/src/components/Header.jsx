@@ -21,15 +21,26 @@ const Header = () => {
         <Link to="/" className="logo">
           <span className="logo-accent">Tech</span>Gear
         </Link>
-        {/* si el usuario es admin */}
         <nav className="nav-links">
           {currentUser?.isAdmin && (
             <Link to="/admin" className="nav-link">Dashboard</Link>
           )}
+
           {currentUser && !currentUser.isAdmin && (
             <Link to="/orders" className="nav-link">Mis Pedidos</Link>
           )}
           {/* si el usuario no es admin */}
+
+
+          {currentUser && !currentUser.isAdmin && (
+            <Link to="#" className="nav-link">Mis pedidos</Link>
+          )}
+
+          <Link to="/cart" className="cart-widget">
+            <ShoppingCart size={24} />
+            {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
+          </Link>
+
           <div className="user-section">
             {currentUser ? (
               <div className="user-info">
@@ -44,11 +55,6 @@ const Header = () => {
               </Link>
             )}
           </div>
-
-          <Link to="/cart" className="cart-widget">
-            <ShoppingCart size={24} />
-            {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
-          </Link>
         </nav>
       </div>
     </header>
